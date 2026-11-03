@@ -403,16 +403,7 @@ export const en = {
   'quiz.q10.e': 'Two disjoint branches indicate a hyperbola (minus sign). They open up and down, so the transverse axis is vertical and $y^2$ comes first: $\\frac{y^2}{a^2} - \\frac{x^2}{b^2} = 1$.',
 
   // references
-  'ref.eyebrow': 'Sources',
   'ref.title': 'References',
-  'ref.intro': 'Bibliography in APA 7 style. Open sources support the content; complementary sources were provided by the student.',
-  'ref.open': 'Open, verifiable sources',
-  'ref.complementary': 'Complementary bibliography provided by the student',
-  'ref.verified': 'Link checked',
-  'ref.pending': 'Pending verification against the original record',
-  'ref.noLink': 'Book citation (no online link)',
-  'ref.license': 'Textbook sections from OpenStax are used as references only; explanations in this infographic are original and based on those sources. OpenStax content is licensed under CC BY 4.0 (https://openstax.org).',
-  'ref.method': 'No formula was attributed to a source that was not consulted. Links that did not work were removed; entries marked as pending are books cited as provided and still need to be checked against the original record.',
 
   'footer.text': 'Analytical Geometry: Interactive Infographic · Universidad Nacional Abierta y a Distancia (UNAD) · Precalculus',
 } as const;

@@ -391,16 +391,7 @@ export const es: Record<MessageKey, string> = {
   'quiz.q10.p': 'La gráfica muestra dos ramas separadas que se abren hacia arriba y hacia abajo, centradas en el origen. ¿Qué ecuación corresponde?',
   'quiz.q10.e': 'Dos ramas disjuntas indican una hipérbola (signo menos). Se abren arriba y abajo, así que el eje transverso es vertical y $y^2$ va primero: $\\frac{y^2}{a^2} - \\frac{x^2}{b^2} = 1$.',
 
-  'ref.eyebrow': 'Fuentes',
   'ref.title': 'Referencias',
-  'ref.intro': 'Bibliografía en estilo APA 7. Las fuentes abiertas respaldan el contenido; las complementarias fueron proporcionadas por la estudiante.',
-  'ref.open': 'Fuentes abiertas y verificables',
-  'ref.complementary': 'Bibliografía complementaria proporcionada por la estudiante',
-  'ref.verified': 'Enlace comprobado',
-  'ref.pending': 'Pendiente de verificar con el registro original',
-  'ref.noLink': 'Cita de libro (sin enlace en línea)',
-  'ref.license': 'Las secciones de OpenStax se usan solo como referencia; las explicaciones de esta infografía son originales y se basan en dichas fuentes. El contenido de OpenStax tiene licencia CC BY 4.0 (https://openstax.org).',
-  'ref.method': 'No se atribuyó ninguna fórmula a una fuente que no haya sido consultada. Se eliminaron los enlaces que no funcionaban; las entradas marcadas como pendientes son libros citados tal como fueron proporcionados y aún deben contrastarse con el registro original.',
 
   'footer.text': 'Geometría Analítica: Infografía Interactiva · Universidad Nacional Abierta y a Distancia (UNAD) · Precálculo',
 };

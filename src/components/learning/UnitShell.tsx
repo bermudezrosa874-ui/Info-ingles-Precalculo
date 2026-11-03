@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from 'react';
 
 interface UnitShellProps {
   id: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   /** Accent colour of the unit (CSS colour). */
   accent: string;
@@ -16,7 +16,7 @@ export function UnitShell({ id, eyebrow, title, accent, accentSoft, children }: 
   return (
     <section id={id} className="unit" style={style} aria-labelledby={`${id}-title`}>
       <header className="unit__header">
-        <span className="unit__eyebrow">{eyebrow}</span>
+        {eyebrow && <span className="unit__eyebrow">{eyebrow}</span>}
         <h2 id={`${id}-title`} className="unit__title" tabIndex={-1}>
           {title}
         </h2>

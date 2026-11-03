@@ -153,7 +153,7 @@ export function EllipseSection() {
             { label: t('ellipse.prop.axes'), value: `${t('ellipse.major')} = ${fmt(info.majorLength)};  ${t('ellipse.minor')} = ${fmt(info.minorLength)}` },
           ]}
         />
-        <p className="note">{info.isCircle ? t('ellipse.circleNote') : t('ellipse.rangeNote')}</p>
+        <p className="note"><RichText text={info.isCircle ? t('ellipse.circleNote') : t('ellipse.rangeNote')} /></p>
       </Card>
 
       <WorkedExample title={t('ellipse.example.title')} steps={steps} action={{ label: t('ui.loadExample'), onClick: () => setE({ ...ELLIPSE_DEFAULT }) }} />

@@ -172,3 +172,31 @@ test('console has no errors', async ({ page }) => {
   await open(page, 'exercises', false);
   expect(errors).toEqual([]);
 });
+
+for (const lang of ['en', 'es']) {
+  for (const view of ['', 'line', 'circle', 'ellipse', 'hyperbola', 'comparison', 'exercises', 'references']) {
+    test(`no raw LaTeX and no clipped formulas: ${lang} /${view}`, async ({ page }) => {
+      await page.goto(`/#/${view}`);
+      if (lang === 'es') {
+        const bar = isDesktop(page) ? page.getByTestId('sidebar') : page.getByTestId('mobile-header');
+        await bar.getByRole('button', { name: 'Español' }).click();
+      }
+      await page.waitForTimeout(800);
+      const res = await page.evaluate(() => {
+        const main = document.querySelector('#main') as HTMLElement;
+        const clone = main.cloneNode(true) as HTMLElement;
+        clone.querySelectorAll('.katex').forEach((n) => n.remove());
+        const text = clone.innerText + clone.textContent;
+        // formulas wider than their container must scroll inside it, never push the page
+        const bad = [...main.querySelectorAll('.katex-display, .tex-block, .equation-card__eq')].filter((e) => {
+          const el = e as HTMLElement;
+          const s = getComputedStyle(el);
+          return el.scrollWidth > el.clientWidth + 1 && !['auto', 'scroll'].includes(s.overflowX);
+        }).length;
+        return { dollar: /\$/.test(text), cmd: /\\(frac|sqrt|pm|text|dfrac|Delta|approx)/.test(text), katexErr: main.querySelectorAll('.katex-error').length, bad, page: document.documentElement.scrollWidth - innerWidth };
+      });
+      expect(res).toEqual({ dollar: false, cmd: false, katexErr: 0, bad: 0, page: expect.any(Number) });
+      expect(res.page).toBeLessThanOrEqual(1);
+    });
+  }
+}

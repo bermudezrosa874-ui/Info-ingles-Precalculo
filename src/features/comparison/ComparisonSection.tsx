@@ -42,7 +42,7 @@ export function ComparisonSection() {
                   <MiniCurve spec={r.spec} color={r.color} label={k(r, 'name')} />
                   <span className="cmp-name">{k(r, 'name')}</span>
                 </th>
-                <td data-label={t('cmp.col.def')}>{k(r, 'def')}</td>
+                <td data-label={t('cmp.col.def')}><RichText text={k(r, 'def')} /></td>
                 <td data-label={t('cmp.col.eq')}><Tex tex={r.tex} /></td>
                 <td data-label={t('cmp.col.props')}><RichText text={k(r, 'props')} /></td>
                 <td data-label={t('cmp.col.elems')}><RichText text={k(r, 'elems')} /></td>

@@ -12,10 +12,10 @@ import { QUESTIONS } from '../../src/features/quiz/questions';
 import { numericMatches, parseNumber } from '../../src/lib/math/answers';
 import { App } from '../../src/app/App';
 
-function Shell({ children, at = '/' }: { children: ReactNode; at?: string }) {
+function Shell({ children, at = '/', lang = 'en' }: { children: ReactNode; at?: string; lang?: 'en' | 'es' }) {
   return (
     <MemoryRouter initialEntries={[at]}>
-      <I18nProvider>{children}</I18nProvider>
+      <I18nProvider initial={lang}>{children}</I18nProvider>
     </MemoryRouter>
   );
 }
@@ -191,4 +191,53 @@ describe('quiz', () => {
     expect(screen.getByText(/Score: 0 \/ 10 \(0%\)/)).toBeInTheDocument();
     expect(screen.getByText(/Topics to review/)).toBeInTheDocument();
   });
+});
+
+describe('math rendering: no raw LaTeX is ever visible', () => {
+  const routes = ['/', '/line', '/circle', '/ellipse', '/hyperbola', '/comparison', '/exercises', '/references'];
+  for (const lang of ['en', 'es'] as const) {
+    for (const at of routes) {
+      it(`${lang} ${at}`, () => {
+        setViewport(1440);
+        const { container, unmount } = render(
+          <Shell at={at} lang={lang}>
+            <App />
+          </Shell>,
+        );
+        // KaTeX output (incl. its MathML copy) is excluded: only text outside formulas is checked.
+        const clone = container.cloneNode(true) as HTMLElement;
+        clone.querySelectorAll('.katex, .tex-block, .tex-inline').forEach((n) => n.remove());
+        const text = clone.textContent ?? '';
+        expect(text).not.toMatch(/\$/);
+        expect(text).not.toMatch(/\\(frac|sqrt|pm|le|neq|approx|text|dfrac|Delta|pi)\b/);
+        expect(text).not.toMatch(/\^\d|_\{|\*\*/);
+        // KaTeX must not have produced parse errors
+        expect(container.querySelectorAll('.katex-error')).toHaveLength(0);
+        unmount();
+      });
+    }
+  }
+});
+
+describe('references', () => {
+  for (const lang of ['en', 'es'] as const) {
+    it(`${lang}: one title, a clean APA list of linked sources, no labels or notes`, () => {
+      setViewport(1440);
+      const { container } = render(
+        <Shell at="/references" lang={lang}>
+          <App />
+        </Shell>,
+      );
+      const main = container.querySelector('section#references') as HTMLElement;
+      expect(main.querySelectorAll('h2, h3')).toHaveLength(1);
+      expect(main.querySelector('h2')).toHaveTextContent(lang === 'en' ? 'References' : 'Referencias');
+      const items = main.querySelectorAll('.ref-list > li');
+      expect(items.length).toBeGreaterThanOrEqual(5);
+      items.forEach((li) => expect(li.querySelector('a[href^="http"]')).not.toBeNull());
+      expect(main.querySelectorAll('.badge')).toHaveLength(0);
+      expect(main.textContent).not.toMatch(/verif|pending|pendiente|comprob|checked|abiert|open source|OpenStax content|estudiante|student|Cita de libro/i);
+      // the section ends with the last reference: nothing but the footer follows the list
+      expect(main.querySelectorAll(':scope > p, .note')).toHaveLength(0);
+    });
+  }
 });

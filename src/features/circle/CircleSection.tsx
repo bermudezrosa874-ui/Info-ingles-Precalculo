@@ -27,7 +27,7 @@ function GeneralFormTool({ onLoad }: { onLoad: (h: number, k: number, r: number)
   const eq = `${linearTex([[1, 'x^2'], [1, 'y^2'], [D, 'x'], [E, 'y'], [F, '']])} = 0`;
   return (
     <Card title={t('circle.tool.title')}>
-      <p className="note">{t('circle.tool.intro')}</p>
+      <p className="note"><RichText text={t('circle.tool.intro')} /></p>
       <div className="field-grid">
         <SliderField label="D" value={D} min={-12} max={12} step={1} onChange={setD} validate={inRange(-1000, 1000)} />
         <SliderField label="E" value={E} min={-12} max={12} step={1} onChange={setE} validate={inRange(-1000, 1000)} />

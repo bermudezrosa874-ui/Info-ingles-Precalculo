@@ -20,6 +20,16 @@ export const Tex = memo(function Tex({ tex, block = false, className }: TexProps
   return <span className={className ?? (block ? 'tex-block' : 'tex-inline')} dangerouslySetInnerHTML={{ __html: html }} />;
 });
 
+/** Inline formula (KaTeX). `math` is plain LaTeX without delimiters. */
+export function InlineMath({ math }: { math: string }) {
+  return <Tex tex={math} />;
+}
+
+/** Display formula (KaTeX), centred and horizontally scrollable on narrow screens. */
+export function BlockMath({ math }: { math: string }) {
+  return <Tex tex={math} block />;
+}
+
 /**
  * Text with inline math between $...$ and **bold** segments.
  * Dictionary strings use this so translations can embed formulas without changing them.
@@ -29,7 +39,7 @@ export function RichText({ text }: { text: string }) {
   return (
     <>
       {parts.map((p, i) => {
-        if (p.startsWith('$') && p.endsWith('$') && p.length > 2) return <Tex key={i} tex={p.slice(1, -1)} />;
+        if (p.startsWith('$') && p.endsWith('$') && p.length > 2) return <InlineMath key={i} math={p.slice(1, -1)} />;
         if (p.startsWith('**') && p.endsWith('**') && p.length > 4) return <strong key={i}>{p.slice(2, -2)}</strong>;
         return <Fragment key={i}>{p}</Fragment>;
       })}
