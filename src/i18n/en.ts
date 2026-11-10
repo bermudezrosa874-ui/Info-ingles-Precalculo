@@ -405,7 +405,7 @@ export const en = {
   // references
   'ref.title': 'References',
 
-  'footer.text': 'Rosalinda Bermudez',
+  'footer.text': 'Analytical Geometry: Interactive Infographic · Universidad Nacional Abierta y a Distancia (UNAD) · Precalculus · Rosalinda Bermudez',
 } as const;
 
 export type MessageKey = keyof typeof en;

@@ -393,5 +393,5 @@ export const es: Record<MessageKey, string> = {
 
   'ref.title': 'Referencias',
 
-  'footer.text': 'Rosalinda Bermudez',
+  'footer.text': 'Geometría Analítica: Infografía Interactiva · Universidad Nacional Abierta y a Distancia (UNAD) · Precálculo · Rosalinda Bermudez',
 };
